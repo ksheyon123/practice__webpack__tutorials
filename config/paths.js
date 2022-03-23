@@ -21,6 +21,8 @@ const publicUrlOrPath = getPublicUrlOrPath(
   process.env.PUBLIC_URL
 );
 
+console.log("__publicurlOrPath", publicUrlOrPath);
+
 const buildPath = process.env.BUILD_PATH || "build";
 
 const moduleFileExtensions = [
