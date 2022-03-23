@@ -5,12 +5,12 @@ const path = require("path");
 const webpack = require("webpack");
 const resolve = require("resolve");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const GenerateJsonPlugin = require("generate-json-webpack-plugin");
 const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
-const InlineChunkHtmlPlugin = require("react-dev-utils/InlineChunkHtmlPlugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
+// const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const InterpolateHtmlPlugin = require("react-dev-utils/InterpolateHtmlPlugin");
 const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 const ModuleScopePlugin = require("react-dev-utils/ModuleScopePlugin");
@@ -25,6 +25,7 @@ const ForkTsCheckerWebpackPlugin =
     ? require("react-dev-utils/ForkTsCheckerWarningWebpackPlugin")
     : require("react-dev-utils/ForkTsCheckerWebpackPlugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+const manifest = require("./manifest");
 
 const createEnvironmentHash = require("./webpack/persistentCache/createEnvironmentHash");
 
@@ -122,7 +123,6 @@ module.exports = function (webpackEnv) {
       },
     ].filter(Boolean);
 
-    console.log("loader", loaders);
     if (preProcessor) {
       loaders.push(
         {
@@ -158,6 +158,7 @@ module.exports = function (webpackEnv) {
     entry: {
       index: [paths.appIndexJs],
       popup: [paths.appPopupJs],
+      background: [paths.appBackgroundJs],
     },
     output: {
       // The build folder.
@@ -601,6 +602,7 @@ module.exports = function (webpackEnv) {
       //     };
       //   },
       // }),
+      new GenerateJsonPlugin("manifest.json", manifest),
 
       // Moment.js is an extremely popular library that bundles large locale files
       // by default due to how webpack interprets its code. This is a practical
