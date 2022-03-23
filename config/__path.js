@@ -7,7 +7,14 @@ const url = require("url");
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebookincubator/create-react-app/issues/637
 const appDirectory = fs.realpathSync(process.cwd());
-const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
+
+console.log(appDirectory);
+
+const resolveApp = (relativePath) => {
+  const t = path.resolve(appDirectory, relativePath);
+  console.log("--t", t);
+  return t;
+};
 
 const envPublicUrl = process.env.PUBLIC_URL;
 
@@ -41,30 +48,30 @@ function getServedPath(appPackageJson) {
 // config after eject: we're in ./config/
 module.exports = {
   dotenv: resolveApp(".env"),
-  appBuild: resolveApp("build"),
-  appBuildTest: resolveApp("build-test"),
-  appBuildDev: resolveApp("build-dev"),
+  // appBuild: resolveApp("build"),
+  // appBuildTest: resolveApp("build-test"),
+  // appBuildDev: resolveApp("build-dev"),
   appPublic: resolveApp("public"),
   appHtml: resolveApp("public/index.html"),
   appPopupHtml: resolveApp("public/popup.html"),
-  appIndexJs: resolveApp("src/app/index.js"),
-  appPopupJs: resolveApp("src/app-popup/index.js"),
+  // appIndexJs: resolveApp("src/app/index.js"),
+  // appPopupJs: resolveApp("src/app-popup/index.js"),
   // <--- SH
-  appPublicTest: resolveApp("public_test"),
-  appHtmlTest: resolveApp("public/index_test.html"),
-  appHtmlDev: resolveApp("public/index_dev.html"),
-  appContentScriptJs: resolveApp("src/content-script/contentScript.js"),
+  // appPublicTest: resolveApp("public_test"),
+  // appHtmlTest: resolveApp("public/index_test.html"),
+  // appHtmlDev: resolveApp("public/index_dev.html"),
+  // appContentScriptJs: resolveApp("src/content-script/contentScript.js"),
   // ---> SH
   // --- added by JH Kim
   appBackgroundJs: resolveApp("src/background/background.js"),
-  appWorkerJs: resolveApp("src/workers/wallet.worker.js"),
-  appPrintCss: resolveApp("src/app/style/ticket.css"),
+  // appWorkerJs: resolveApp("src/workers/wallet.worker.js"),
+  // appPrintCss: resolveApp("src/app/style/ticket.css"),
   // --- added by JH Kim
 
   appPackageJson: resolveApp("package.json"),
   appSrc: resolveApp("src"),
   yarnLockFile: resolveApp("yarn.lock"),
-  testsSetup: resolveApp("src/setupTests.js"),
+  // testsSetup: resolveApp("src/setupTests.js"),
   appNodeModules: resolveApp("node_modules"),
   publicUrl: getPublicUrl(resolveApp("package.json")),
   servedPath: getServedPath(resolveApp("package.json")),
